@@ -19,7 +19,7 @@ module.exports = {
         let book = req.body;
 
         if (!book.title || !book.author || !book.series ||!book.year){
-            return res.status(200).send('must include all required info')
+            return res.status(200).send('must include all required book info')
         }
         db.addBook([book.title, book.author, book.series, book.year])
         .then( response => {
@@ -34,16 +34,67 @@ module.exports = {
         const db = req.app.get('db');
         let member = req.body;
 
-        // if (!book.title || !book.author || !book.series ||!book.year){
-        //     return res.status(200).send('must include all required info')
-        // }
-        // db.addBook([book.title, book.author, book.series, book.year])
-        // .then( response => {
-        //     return res.status(200).json('Book was added to the database');
-        // })
-        // .catch( err => {
-        //     res.status(500).send("Whoops! Looks like there was an error: ", err);
-        // })
+        if (!member.firstname || !member.lastname || !member.streetaddress 
+            ||!member.city ||!member.state ||!member.zip ||!member.phone){
+            return res.status(200).send('must include all required membership info')
+        }
+
+        db.addNewMember([member.firstname, member.lastname, member.streetaddress, member.city,
+        member.state, member.zip, member.phone])
+        .then( response => {
+            return res.status(200).json('New member was added to the database');
+        })
+        .catch( err => {
+            res.status(500).send(err);
+        })
+    },
+
+    deleteMember: function(req, res, next){
+        const db = req.app.get('db');
+        let member = req.body;
+
+        if (!member.id || !member.lastname){
+            return res.status(200).send('must include id AND last name of member to delete')
+        }
+        console.log(member)
+        db.findMemberToDelete([member.id, member.lastname])
+        .then(result => {
+            if (result.length){
+                db.deleteMember([member.id])
+                .then( response => {
+                    return res.status(200).json( {status: 'Membership record was deleted'} );
+                })
+            }else{
+                return res.status(200).send('No membership record found with that id and last name')
+            }
+        })
+        .catch( err => {
+            res.status(500).send(err);
+        })
+    },
+
+    deleteBook: function(req, res, next){
+        const db = req.app.get('db');
+        let book = req.body;
+
+        if (!book.id || !book.title){
+            return res.status(200).send('must include id AND title of book to delete')
+        }
+        
+        db.findBookToDelete([book.id, book.title])
+        .then(result => {
+            if (result.length){
+                db.deleteBook([book.id])
+                .then( response => {
+                    return res.status(200).json( {status: 'Book was deleted'} );
+                })
+            }else{
+                return res.status(200).send('No book found with that id and title')
+            }
+        })
+        .catch( err => {
+            res.status(500).send(err);
+        })
     }
   
 };

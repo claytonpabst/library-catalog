@@ -32,12 +32,12 @@ var userController = require("./userController.js");
 // app.get('/api/', userController.function);
 // app.get('/api/', userController.function);
 // app.get('/api/', userController.function);
-// app.get('/api/', userController.function);
-// app.get('/api/', userController.function);
-// app.get('/api/', userController.function);
 
+app.post('/api/members', userController.addNewMember);
 app.post('/api/books', userController.addBook);
 app.post('/api/login', userController.login);
 
+app.delete('/api/members', userController.deleteMember);
+app.delete('/api/books', userController.deleteBook);
 
 app.listen(config.port, console.log("you are now connected on " + config.port));
