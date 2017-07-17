@@ -1,6 +1,20 @@
 const app = require('./index.js');
 
 module.exports = {
+
+    viewMembersAccount: function(req, res, next){
+        const db = req.app.get('db');
+        let id = req.params.id;
+
+        db.viewMembersAccount([id])
+        .then( response => {
+            if (response.length){
+                return res.status(200).send(response);
+            }else{
+                return res.status(200).send('No membership record found with that id.')
+            }
+        })
+    },
   
     login: function(req, res, next){
         const db = req.app.get('db');
@@ -49,6 +63,29 @@ module.exports = {
         })
     },
 
+    updateMemberInfo(req, res, next){
+        const db = req.app.get('db');
+        let member = req.body;
+        let id = req.params.id;
+        let updated = {};
+
+        if (!id){
+            return res.status(200).send('must include membership id in the url to update membership record')
+        }
+        db.viewMembersAccount([id])
+        .then( result => {
+            if (result.length){
+                for (var key in member){
+                    db.updateMemberInfo([key, member[key], id])
+                }
+                return res.status(200).send('Membership record was updated properly')
+            }else{
+                return res.status(200).send('No membership record found by that ID')
+            }
+        })
+        .catch( err => res.status(500).send(err) );        
+    },
+
     deleteBook: function(req, res, next){
         const db = req.app.get('db');
         let book = req.body;
@@ -94,20 +131,6 @@ module.exports = {
         })
         .catch( err => {
             res.status(500).send(err);
-        })
-    },
-
-    viewMembersAccount: function(req, res, next){
-        const db = req.app.get('db');
-        let id = req.params.id;
-
-        db.viewMembersAccount([id])
-        .then( response => {
-            if (response.length){
-                return res.status(200).send(response);
-            }else{
-                return res.status(200).send('No membership record found with that id.')
-            }
         })
     },
 

@@ -32,11 +32,12 @@ app.get('/api/members/:id', userController.viewMembersAccount);
 
 // app.get('/api/', userController.function);
 // app.get('/api/', userController.function);
-// app.get('/api/', userController.function);
 
 app.post('/api/login', userController.login);
 app.post('/api/books', userController.addBook);
 app.post('/api/members', userController.addNewMember);
+
+app.put('/api/members/:id', userController.updateMemberInfo);
 
 app.delete('/api/books', userController.deleteBook);
 app.delete('/api/members', userController.deleteMember);
