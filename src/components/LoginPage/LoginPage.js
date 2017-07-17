@@ -6,9 +6,16 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className="loginPage">
+      <div className="login_page">
 
-          LoginPage Page
+          <h2>Admin Login</h2>
+          
+          <div className='login_modal'>
+            <h4>USERNAME</h4>
+            <input placeholder='username' />
+            <h4>PASSWORD</h4>
+            <input placeholder='password' type='password' />
+          </div>
 
       </div>
     );
