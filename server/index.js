@@ -28,6 +28,15 @@ var userController = require("./userController.js");
 
 //////////Endpoints for the front end
 
+// app.get('/api/', userController.function);
+// app.get('/api/', userController.function);
+// app.get('/api/', userController.function);
+// app.get('/api/', userController.function);
+// app.get('/api/', userController.function);
+// app.get('/api/', userController.function);
+// app.get('/api/', userController.function);
+
+app.post('/api/books', userController.addBook);
 app.post('/api/login', userController.login);
 
 
