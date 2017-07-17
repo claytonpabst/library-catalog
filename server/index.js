@@ -28,16 +28,17 @@ var userController = require("./userController.js");
 
 //////////Endpoints for the front end
 
-// app.get('/api/', userController.function);
+app.get('/api/members/:id', userController.viewMembersAccount);
+
 // app.get('/api/', userController.function);
 // app.get('/api/', userController.function);
 // app.get('/api/', userController.function);
 
-app.post('/api/members', userController.addNewMember);
-app.post('/api/books', userController.addBook);
 app.post('/api/login', userController.login);
+app.post('/api/books', userController.addBook);
+app.post('/api/members', userController.addNewMember);
 
-app.delete('/api/members', userController.deleteMember);
 app.delete('/api/books', userController.deleteBook);
+app.delete('/api/members', userController.deleteMember);
 
 app.listen(config.port, console.log("you are now connected on " + config.port));

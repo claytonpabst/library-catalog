@@ -49,6 +49,30 @@ module.exports = {
         })
     },
 
+    deleteBook: function(req, res, next){
+        const db = req.app.get('db');
+        let book = req.body;
+
+        if (!book.id || !book.title){
+            return res.status(200).send('must include id AND title of book to delete')
+        }
+        
+        db.findBookToDelete([book.id, book.title])
+        .then(result => {
+            if (result.length){
+                db.deleteBook([book.id])
+                .then( response => {
+                    return res.status(200).json( {status: 'Book was deleted'} );
+                })
+            }else{
+                return res.status(200).send('No book found with that id and title')
+            }
+        })
+        .catch( err => {
+            res.status(500).send(err);
+        })
+    },
+
     deleteMember: function(req, res, next){
         const db = req.app.get('db');
         let member = req.body;
@@ -73,30 +97,20 @@ module.exports = {
         })
     },
 
-    deleteBook: function(req, res, next){
+    viewMembersAccount: function(req, res, next){
         const db = req.app.get('db');
-        let book = req.body;
+        let id = req.params.id;
 
-        if (!book.id || !book.title){
-            return res.status(200).send('must include id AND title of book to delete')
-        }
-        
-        db.findBookToDelete([book.id, book.title])
-        .then(result => {
-            if (result.length){
-                db.deleteBook([book.id])
-                .then( response => {
-                    return res.status(200).json( {status: 'Book was deleted'} );
-                })
+        db.viewMembersAccount([id])
+        .then( response => {
+            if (response.length){
+                return res.status(200).send(response);
             }else{
-                return res.status(200).send('No book found with that id and title')
+                return res.status(200).send('No membership record found with that id.')
             }
         })
-        .catch( err => {
-            res.status(500).send(err);
-        })
-    }
-  
+    },
+
 };
 
 
