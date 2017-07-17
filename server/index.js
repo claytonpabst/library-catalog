@@ -17,20 +17,18 @@ app.use(session({
     }
 }))
 
-var conn = massive.connectSync({
-  connectionString: config.connectionString
+massive(config.connection)
+.then( db => {
+  app.set('db', db);
 })
 
-
 app.use(express.static(__dirname + './../build'))
-app.set('db',conn);
-var db = app.get('db');
 
 var userController = require("./userController.js");
 
 //////////Endpoints for the front end
 
-
+app.post('/api/login', userController.login);
 
 
 app.listen(config.port, console.log("you are now connected on " + config.port));
