@@ -73,11 +73,9 @@ module.exports = {
             if (result.length){
                 if (member.firstname){
                     db.updateMemberFirstname([member.firstname, id])
-                    .then()
                 }
                 if (member.lastname){
                     db.updateMemberLastname([member.lastname, id])
-                    .then()
                 }
                 if (member.streetaddress){
                     db.updateMemberStreetaddress([member.streetaddress, id])
@@ -116,7 +114,43 @@ module.exports = {
     },
 
     updateBookInfo: function(){
+        const db = req.app.get('db');
+        let book = req.body;
+        let id = req.params.id;
 
+        db.findBook([id, book.title])
+        .then( result => {
+            if (result.length){
+                if (book.title){
+                    db.updateBookTitle([book.title, id])
+                }
+                if (book.author){
+                    db.updateBookAuthor([book.author, id])
+                }
+                if (book.series){
+                    db.updateBookSeries([book.series, id])
+                }
+                if (book.year){
+                    db.updateBookYear([book.year, id])
+                }
+                if (book.available){
+                    db.updateBookAvailable([book.available, id])
+                }
+                if (book.whohasit){
+                    db.updateWhoHasIt([book.whohasit, id])
+                }
+                if (book.duedate){
+                    db.updateBookDueDate([book.duedate, id])
+                }
+                if (book.checkoutdate){
+                    db.updateBookCheckoutDate([book.checkoutdate, id])
+                }
+                return res.status(200).send('Book info was updated properly')
+            }else{
+                return res.status(200).send('No book was found with that ID and title')
+            }
+        })
+        .catch( err => res.status(500).send(err) );  
     },
 
     deleteBook: function(req, res, next){
@@ -127,7 +161,7 @@ module.exports = {
             return res.status(200).send('must include id AND title of book to delete')
         }
         
-        db.findBookToDelete([book.id, book.title])
+        db.findBook([book.id, book.title])
         .then(result => {
             if (result.length){
                 db.deleteBook([book.id])

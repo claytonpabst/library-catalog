@@ -26,9 +26,8 @@ app.use(express.static(__dirname + './../build'))
 
 var userController = require("./userController.js");
 
-////////// Endpoints for the front end //////////
 
-// User Endpoints
+// Front End User Endpoints
 app.get('/api/books/alph/:title', userController.getBookByTitleAlph);
 app.get('/api/books/year/:title', userController.getBookByTitleYear);
 app.get('/api/books/alph/:author', userController.getBookByAuthorAlph);
@@ -37,7 +36,7 @@ app.get('/api/books/alph/:series', userController.getBookBySeriesAlph);
 app.get('/api/books/year/:series', userController.getBookBySeriesYear);
 
 
-// Admin Endpoints
+// Front End Admin Endpoints
 app.get('/api/members/:id', adminController.viewMembersAccount);
 
 app.post('/api/login', userController.login);
