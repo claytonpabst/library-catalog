@@ -16,7 +16,7 @@ module.exports = {
     getBooksByAuthorAlph: function(req, res, next){
         const db = req.app.get('db');
         let author = req.params.author;
-        console.log(author)
+        
         db.getBooksByAuthorAlph([author])
         .then( response => {
             return res.status(200).json(response);
@@ -28,6 +28,7 @@ module.exports = {
     getBooksByAuthorYear: function(req, res, next){
         const db = req.app.get('db');
         let author = req.params.author;
+
         db.getBooksByAuthorYear([author])
         .then( response => {
             return res.status(200).json(response);
@@ -39,6 +40,7 @@ module.exports = {
     getBooksBySeriesAlph: function(req, res, next){
         const db = req.app.get('db');
         let series = req.params.series;
+
         db.getBooksBySeriesAlph([series])
         .then( response => {
             return res.status(200).json(response);
@@ -50,6 +52,7 @@ module.exports = {
     getBooksBySeriesYear: function(req, res, next){
         const db = req.app.get('db');
         let series = req.params.series;
+        
         db.getBooksBySeriesYear([series])
         .then( response => {
             return res.status(200).json(response);
