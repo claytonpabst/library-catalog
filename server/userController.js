@@ -15,6 +15,30 @@ module.exports = {
             }
         })
     },
+
+    getBookByTitleAlph: function(){
+
+    },
+
+    getBookByTitleYear: function(){
+
+    },
+
+    getBookByAuthorAlph: function(){
+
+    },
+
+    getBookByAuthorYear: function(){
+
+    },
+
+    getBookBySeriesAlph: function(){
+
+    },
+
+    getBookBySeriesYear: function(){
+
+    },
   
     login: function(req, res, next){
         const db = req.app.get('db');
@@ -115,6 +139,10 @@ module.exports = {
         // }  
     },
 
+    updateBookInfo: function(){
+
+    },
+
     deleteBook: function(req, res, next){
         const db = req.app.get('db');
         let book = req.body;
@@ -164,25 +192,3 @@ module.exports = {
     },
 
 };
-
-
-//EXAMPLE FOR MASSIVE 3.0
-    // vehicleByQuery: function(req, res, next){
-    //     const db = req.app.get('db');
-    //     let email = req.query.userEmail;
-    //     let letter = req.query.userFirstStart;
-
-    //     if(email){
-    //         db.vehicle_by_email([email])
-    //         .then(function(response){
-    //             res.status(200).send(response);
-    //         })
-    //         .catch( (err) => res.status(500).send(err))
-    //     } else if(letter){
-    //         db.vehicle_by_letter([letter+'%'])
-    //         .then(function(response){
-    //             res.status(200).send(response);
-    //         })
-    //         .catch( (err) => res.status(500).send(err))
-    //     }
-    // }

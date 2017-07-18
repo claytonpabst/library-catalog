@@ -29,6 +29,13 @@ var userController = require("./userController.js");
 //////////Endpoints for the front end
 
 app.get('/api/members/:id', userController.viewMembersAccount);
+app.get('/api/books/alph/:title', userController.getBookByTitleAlph);
+app.get('/api/books/year/:title', userController.getBookByTitleYear);
+
+app.get('/api/books/alph/:author', userController.getBookByAuthorAlph);
+app.get('/api/books/year/:author', userController.getBookByAuthorYear);
+app.get('/api/books/alph/:series', userController.getBookBySeriesAlph);
+app.get('/api/books/year/:series', userController.getBookBySeriesYear);
 
 // app.get('/api/', userController.function);
 // app.get('/api/', userController.function);
@@ -38,6 +45,7 @@ app.post('/api/books', userController.addBook);
 app.post('/api/members', userController.addNewMember);
 
 app.put('/api/members/:id', userController.updateMemberInfo);
+app.put('/api/books/:id', userController.updateBookInfo);
 
 app.delete('/api/books', userController.deleteBook);
 app.delete('/api/members', userController.deleteMember);
