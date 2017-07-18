@@ -21,7 +21,11 @@ module.exports = {
         
         db.login([req.body.username, req.body.password])
         .then( response => {
-            return res.status(200).json(response);
+            if (response.length){
+                return res.status(200).json(response);
+            }else{
+                return res.status(200).send('Invalid username or password')
+            }
         })
         .catch( err => {
             res.status(500).send(err);
