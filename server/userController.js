@@ -67,23 +67,52 @@ module.exports = {
         const db = req.app.get('db');
         let member = req.body;
         let id = req.params.id;
-        let updated = {};
 
-        if (!id){
-            return res.status(200).send('must include membership id in the url to update membership record')
-        }
         db.viewMembersAccount([id])
         .then( result => {
             if (result.length){
-                for (var key in member){
-                    db.updateMemberInfo([key, member[key], id])
+                if (member.firstname){
+                    db.updateMemberFirstname([member.firstname, id])
+                    .then()
+                }
+                if (member.lastname){
+                    db.updateMemberLastname([member.lastname, id])
+                    .then()
+                }
+                if (member.streetaddress){
+                    db.updateMemberStreetaddress([member.streetaddress, id])
+                }
+                if (member.city){
+                    db.updateMemberCity([member.city, id])
+                }
+                if (member.state){
+                    db.updateMemberState([member.state, id])
+                }
+                if (member.zip){
+                    db.updateMemberZip([member.zip, id])
+                }
+                if (member.phone){
+                    db.updateMemberPhone([member.phone, id])
+                }
+                if (member.fees){
+                    db.updateMemberFees([member.fees, id])
                 }
                 return res.status(200).send('Membership record was updated properly')
             }else{
                 return res.status(200).send('No membership record found by that ID')
             }
         })
-        .catch( err => res.status(500).send(err) );        
+        .catch( err => res.status(500).send(err) );      
+        // {
+        //     "firstname": "test1",
+        //     "lastname": "test1",
+        //     "streetaddress": "test1",
+        //     "city": "test1",
+        //     "state": "test1",
+        //     "zip": 11111,
+        //     "phone": "test1",
+        //     "fees": 2.20
+        // }  
     },
 
     deleteBook: function(req, res, next){
