@@ -30,10 +30,10 @@ var adminController = require("./adminController.js");
 
 // Front End User Endpoints
 app.get('/api/books/title/:title', userController.getBookByTitle);
-app.get('/api/books/author/alph/:author', userController.getBookByAuthorAlph);
-app.get('/api/books/author/year/:author', userController.getBookByAuthorYear);
-app.get('/api/books/series/alph/:series', userController.getBookBySeriesAlph);
-app.get('/api/books/series/year/:series', userController.getBookBySeriesYear);
+app.get('/api/books/author/alph/:author', userController.getBooksByAuthorAlph);
+app.get('/api/books/author/year/:author', userController.getBooksByAuthorYear);
+app.get('/api/books/series/alph/:series', userController.getBooksBySeriesAlph);
+app.get('/api/books/series/year/:series', userController.getBooksBySeriesYear);
 
 
 // Front End Admin Endpoints
