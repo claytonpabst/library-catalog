@@ -1,10 +1,16 @@
 const app = require('./index.js');
+const config = require('./config.js');
+var authorizedLogin = false;
 
 module.exports = {
 
     viewMembersAccount: function(req, res, next){
         const db = req.app.get('db');
         let id = req.params.id;
+
+        if (!authorizedLogin){
+            return res.status(200).send('Must be logged in to proceed');
+        }
 
         db.viewMembersAccount([id])
         .then( response => {
@@ -22,6 +28,8 @@ module.exports = {
         db.login([req.body.username, req.body.password])
         .then( response => {
             if (response.length){
+                req.session.id = response[0].adminid + config.secret;
+                authorizedLogin = true;
                 return res.status(200).json(response);
             }else{
                 return res.status(200).send('Invalid username or password')
@@ -30,6 +38,11 @@ module.exports = {
         .catch( err => {
             res.status(500).send(err);
         })
+    },
+
+    logout: function(req, res, next){
+        authorizedLogin = false;
+        req.session.id = null;
     },
 
     addBook: function(req, res, next){
@@ -104,17 +117,7 @@ module.exports = {
                 return res.status(200).send('No membership record found by that ID')
             }
         })
-        .catch( err => res.status(500).send(err) );      
-        // {
-        //     "firstname": "test1",
-        //     "lastname": "test1",
-        //     "streetaddress": "test1",
-        //     "city": "test1",
-        //     "state": "test1",
-        //     "zip": 11111,
-        //     "phone": "test1",
-        //     "fees": 2.20
-        // }  
+        .catch( err => res.status(500).send(err) );
     },
 
     updateBookInfo: function(req, res, next){

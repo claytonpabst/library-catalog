@@ -40,6 +40,7 @@ app.get('/api/books/series/year/:series', userController.getBooksBySeriesYear);
 app.get('/api/members/:id', adminController.viewMembersAccount);
 
 app.post('/api/login', adminController.login);
+app.post('/api/logout', adminController.logout);
 app.post('/api/books', adminController.addBook);
 app.post('/api/members', adminController.addNewMember);
 
