@@ -113,12 +113,12 @@ module.exports = {
         // }  
     },
 
-    updateBookInfo: function(){
+    updateBookInfo: function(req, res, next){
         const db = req.app.get('db');
         let book = req.body;
         let id = req.params.id;
 
-        db.findBook([id, book.title])
+        db.findBookById([id])
         .then( result => {
             if (result.length){
                 if (book.title){
@@ -137,7 +137,7 @@ module.exports = {
                     db.updateBookAvailable([book.available, id])
                 }
                 if (book.whohasit){
-                    db.updateWhoHasIt([book.whohasit, id])
+                    db.updateBookWhoHasIt([book.whohasit, id])
                 }
                 if (book.duedate){
                     db.updateBookDueDate([book.duedate, id])
@@ -145,31 +145,75 @@ module.exports = {
                 if (book.checkoutdate){
                     db.updateBookCheckoutDate([book.checkoutdate, id])
                 }
-                return res.status(200).send('Book info was updated properly')
+                return res.status(200).send('Book info was updated successfully')
             }else{
-                return res.status(200).send('No book was found with that ID and title')
+                return res.status(200).send('No book was found by that ID')
             }
         })
         .catch( err => res.status(500).send(err) );  
     },
 
+    checkoutBookToMember: function(req, res, next){
+        const db = req.app.get('db');
+        let bookid = req.params.bookid;
+        let {memberid, lastname} = req.body;
+        let today = new Date();
+        let checkoutDate = today.toLocaleDateString()  ; 
+        let dueDate = new Date(today.getFullYear(), today.getMonth()+1, today.getDate()).toLocaleDateString();
+
+        if (!memberid || !lastname){
+            return res.status(200).send('Must include member id and last name to check out a book')
+        }
+
+        db.findBookById([bookid])
+        .then( result => {
+            if (result.length){
+                db.findMember([memberid, lastname])
+                .then( member => {
+                    if (member.length){
+                        db.checkoutBook([checkoutDate, dueDate, memberid, bookid])
+                        .then( update => {
+                            return res.status(200).send('Book was successfully checked out')
+                        })
+                        .catch( updateErr => {
+                            console.log(updateErr)
+                            return res.status(500).send(updateErr)
+                        })
+                    }else{
+                        return res.status(200).send('No member record found with that id and lastname')
+                    }
+                })
+                .catch( memberErr => res.status(500).send(memberErr) )               
+            }else{
+                return res.status(200).send('No book was found by that ID')
+            }
+        })
+        .catch( err => res.status(500).send(err) );  
+    },
+
+    checkBookBackIn: function(req, res, next){
+        const db = req.app.get('db');
+        let bookid = req.params.bookid;
+        db.checkBookBackIn([bookid])
+        .then( response => {
+            return res.status(200).send('Book was returned successfully!')
+        })
+        .catch( err => res.status(500).send(err) )
+    },
+
     deleteBook: function(req, res, next){
         const db = req.app.get('db');
-        let book = req.body;
-
-        if (!book.id || !book.title){
-            return res.status(200).send('must include id AND title of book to delete')
-        }
+        let id = req.params.id;
         
-        db.findBook([book.id, book.title])
+        db.findBookById([id])
         .then(result => {
             if (result.length){
-                db.deleteBook([book.id])
+                db.deleteBook([id])
                 .then( response => {
-                    return res.status(200).json( {status: 'Book was deleted'} );
+                    return res.status(200).json( {status: 'Book was deleted successfully'} );
                 })
             }else{
-                return res.status(200).send('No book found with that id and title')
+                return res.status(200).send('No book found by that id')
             }
         })
         .catch( err => {
@@ -182,10 +226,11 @@ module.exports = {
         let member = req.body;
 
         if (!member.id || !member.lastname){
-            return res.status(200).send('must include id AND last name of member to delete')
+            return res.status(200).send('must include id AND last name of member to delete membership record')
         }
+
         console.log(member)
-        db.findMemberToDelete([member.id, member.lastname])
+        db.findMember([member.id, member.lastname])
         .then(result => {
             if (result.length){
                 db.deleteMember([member.id])
