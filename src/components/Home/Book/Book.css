@@ -1,7 +1,21 @@
 .book_result_box{
     width: 80%;
-    height: 200px;
+    height: 130px;
     background: #EFC3E6;
     position: relative;
     margin: 12px 10% 12px 10%;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 15px 5px 15px;
+    box-shadow: 2px 2px 4px #777;
+    cursor: pointer;
+}
+
+.book_result_box h3{
+    font-size: 18px;
+}
+
+.book_result_box h4{
+    margin: 5px 0px 5px 0px;
 }

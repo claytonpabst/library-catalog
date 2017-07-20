@@ -60,7 +60,7 @@
     display: flex;
     justify-content: left;
     position: absolute;
-    left: 70%;
+    top: 15px;
     margin-top: 10px;
 }
 
@@ -71,11 +71,11 @@
 }
 
 .search_for_box{
-    top: 130px;
+    left: 5px;
 }
 
 .order_by_box{
-    top: 160px;
+    right: 5px;
 }
 
 .pagination{
@@ -100,4 +100,28 @@
 
 .next_results{
     left: calc(50% + 5px);
+}
+
+@media(min-width: 500px){
+    .search_for_box{
+        left: 5%;
+    }
+
+    .order_by_box{
+        right: 5%;
+    }
+}
+
+@media(min-width: 800px){
+    .filter_box{
+        left: 70%;
+    }
+
+    .search_for_box{
+        top: 130px;
+    }
+
+    .order_by_box{
+        top: 160px;
+    }
 }
