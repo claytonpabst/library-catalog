@@ -9,10 +9,10 @@
     width: 100%;
     font-size: 25px;
     font-weight: bold;
-    color: #363;
+    color: #B8BEDD;
     position: absolute;
     top: calc(50% - 200px);
-    text-shadow: 1px 1px 1px #010;
+    text-shadow: 1px 1px 1px #100;
 }
 
 .login_modal{
@@ -21,10 +21,10 @@
     position: absolute;
     left: calc(50% - 150px);
     top: calc(50% - 150px);
-    background: #585;
+    background: #9C89B8;
     padding: 15px;
     border-radius: 5px;
-    box-shadow: 3px 3px 3px #010;
+    box-shadow: 3px 3px 3px #100;
 }
 
 .login_modal h4{
