@@ -96,7 +96,15 @@ class Home extends Component {
               {
                 this.state.results.map( (result, i) => {
                   return <li key={i}>
-                      <Book />
+                      <Book title={result.title}
+                      author={result.author}
+                      series={result.series}
+                      year={result.year}
+                      />
+                      
+                      {/* numCopies={result.numCopies}
+                      numAvailable={result.numAvailable}  */}
+
                     </li>
                 })
               }

@@ -10,6 +10,11 @@ class Book extends Component {
           <h4>Brandon Sanderson</h4>
           <h4>Copies: 3</h4>
           <h4>Available: 2</h4>
+
+          {/* <h3>{ this.props.title }, { this.props.year }</h3>
+          <h4>{ this.props.author }</h4>
+          <h4>Copies: { this.props.numCopies }</h4>
+          <h4>Available: { this.props.numAvailable }</h4> */}
         </div>
     )
   }
