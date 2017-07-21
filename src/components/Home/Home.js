@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Home.css';
+import axios from 'axios';
 
 import Book from './Book/Book.js';
 
@@ -8,8 +9,51 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      results: [1, 2, 3]
+      results: [1, 2, 3],
+      userInput: '',
+      searchBy: 'title',
+      orderBy: 'alph'
     }
+
+    this.UpdateUserInput = this.UpdateUserInput.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.updateSearchBy = this.updateSearchBy.bind(this);
+    this.updateOrderBy = this.updateOrderBy.bind(this);
+  }
+
+  UpdateUserInput(e){
+    this.setState({
+      userInput: e.target.value
+    })
+  }
+
+  handleSearch(){
+    let apiURL = `/api/books/${this.state.searchBy}/${this.state.orderBy}/${this.state.userInput}`;
+    // console.log(apiURL)
+    axios.get(apiURL).then( res => {
+      // console.log(res)
+      this.setState({
+        results: res.data
+      })
+    })
+  }
+
+  updateSearchBy(e){
+    this.setState({
+      searchBy: e.target.value
+    })
+  }
+
+  updateOrderBy(e){
+    let newOrderByValue;
+    if (e.target.value === 'A-Z'){
+      newOrderByValue = 'alph'
+    }else{
+      newOrderByValue = 'year'
+    }
+    this.setState({
+      orderBy: newOrderByValue
+    })
   }
 
   render() {
@@ -19,12 +63,15 @@ class Home extends Component {
           <section className='search_box'>
 
             <h2 className='search_for_h2'>Search For:</h2>
-            <input className='user_search' placeholder='Type your search here' />
-            <button className='start_search'>Start Search</button>
+            <input className='user_search' 
+            placeholder='Type your search here'
+            onChange={ this.UpdateUserInput } />
+            <button className='start_search'
+            onClick={ this.handleSearch }>Start Search</button>
 
             <div className='filter_box search_for_box'>
               <h2>Search By:</h2>
-              <select>
+              <select onChange={ this.updateSearchBy }>
                 <option>Title</option>
                 <option>Author</option>
                 <option>Series</option>
@@ -33,9 +80,9 @@ class Home extends Component {
 
             <div className='filter_box order_by_box'>
               <h2>Order By:</h2>
-              <select>
-                <option>Year</option>
+              <select onChange={ this.updateOrderBy }>
                 <option>A-Z</option>
+                <option>Year</option>
               </select>
             </div>
 
@@ -47,8 +94,8 @@ class Home extends Component {
             <button className='pagination next_results'>Next</button>
             <ul className='results_container'>
               {
-                this.state.results.map( (result,i) => {
-                  return <li>
+                this.state.results.map( (result, i) => {
+                  return <li key={i}>
                       <Book />
                     </li>
                 })
