@@ -2,23 +2,13 @@ const app = require('./index.js');
 
 module.exports = {
 
-    getBookByTitle: function(req, res, next){
+    searchBooksByTitle: function(req, res, next){
         const db = req.app.get('db');
         let title = req.params.title + '%';
-        let response = {};
         
-        db.getBookByTitle([title])
-        .then( book => {
-            response = book;
-            for (var i in response){
-                db.getNumCopies([response[i].title])
-                .then( num => {
-                    response[i].numCopies = num
-                })
-                .catch( err => res.status(500).json(err))
-            }
-            console.log(response)
-            // return res.status(200).json(response)
+        db.searchBooksByTitle([title])
+        .then( books => {
+            return res.status(200).json(books)
         })
         .catch( err => res.status(500).json(err) )
     },
@@ -70,6 +60,23 @@ module.exports = {
         })
         .catch( err => res.status(500).json(err) )
     },
+
+    getBookInfoByTitle: function(req, res, next){
+        const db = req.app.get('db');
+        let title = req.params.title;
+        let response = {};
+        
+        db.getNumCopies([title])
+        .then( (copies) => {
+            response.numCopies = copies
+            db.getNumAvailable([title])
+            .then( available => {
+                response.numAvailable = available;
+                return res.status(200).json(response);
+            })
+        })
+        .catch( err => res.status(500).json(err) )
+    }
 
 };
 
