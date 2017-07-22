@@ -29,11 +29,19 @@ class Home extends Component {
 
   handleSearch(){
     let apiURL = `/api/books/${this.state.searchBy}/${this.state.orderBy}/${this.state.userInput}`;
-    axios.get(apiURL).then( res => {
-      this.setState({
-        results: res.data
-      })
-      console.log(this.state)
+    axios.get(apiURL)
+    .then( res => {
+      let results = res.data.slice();
+      for (let i = 0; i < results.length; i ++){
+        axios.get(`/api/books/availability/${results[i].title}`)
+        .then( nums => {
+          results[i].numCopies = nums.data.numCopies[0].count;
+          results[i].numAvailable = nums.data.numAvailable[0].count;
+          this.setState({
+            results: results
+          })
+        })
+      }
     })
   }
 
@@ -99,11 +107,9 @@ class Home extends Component {
                       author={result.author}
                       series={result.series}
                       year={result.year}
+                      numCopies={result.numCopies}
+                      numAvailable={result.numAvailable} 
                       />
-                      
-                      {/* numCopies={result.numCopies}
-                      numAvailable={result.numAvailable}  */}
-
                     </li>
                 })
               }
