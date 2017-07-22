@@ -29,9 +29,7 @@ class Home extends Component {
 
   handleSearch(){
     let apiURL = `/api/books/${this.state.searchBy}/${this.state.orderBy}/${this.state.userInput}`;
-    // console.log(apiURL)
     axios.get(apiURL).then( res => {
-      // console.log(res)
       this.setState({
         results: res.data
       })

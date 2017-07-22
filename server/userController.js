@@ -4,11 +4,21 @@ module.exports = {
 
     getBookByTitle: function(req, res, next){
         const db = req.app.get('db');
-        let title = req.params.title;
+        let title = req.params.title + '%';
+        let response = {};
         
         db.getBookByTitle([title])
-        .then( response => {
-            return res.status(200).json(response);
+        .then( book => {
+            response = book;
+            for (var i in response){
+                db.getNumCopies([response[i].title])
+                .then( num => {
+                    response[i].numCopies = num
+                })
+                .catch( err => res.status(500).json(err))
+            }
+            console.log(response)
+            // return res.status(200).json(response)
         })
         .catch( err => res.status(500).json(err) )
     },
