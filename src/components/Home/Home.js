@@ -9,7 +9,7 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      results: [],
+      results: [1, 2],
       userInput: '',
       searchBy: 'title',
       orderBy: 'alph'
@@ -89,8 +89,8 @@ class Home extends Component {
 
           <section className='search_results'>
 
-            <button className='pagination prev_results'>Prev</button>
-            <button className='pagination next_results'>Next</button>
+            {/* <button className='pagination prev_results'>Prev</button>
+            <button className='pagination next_results'>Next</button> */}
             <ul className='results_container'>
               {
                 this.state.results.map( (result, i) => {

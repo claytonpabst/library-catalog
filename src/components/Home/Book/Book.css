@@ -1,3 +1,8 @@
+.book_container{
+    width: 100%;
+    position: relative;
+}
+
 .book_result_box{
     width: 80%;
     height: 130px;
