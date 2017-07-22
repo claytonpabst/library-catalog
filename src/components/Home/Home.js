@@ -9,7 +9,7 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      results: [1, 2, 3],
+      results: [],
       userInput: '',
       searchBy: 'title',
       orderBy: 'alph'
@@ -35,6 +35,7 @@ class Home extends Component {
       this.setState({
         results: res.data
       })
+      console.log(this.state)
     })
   }
 
