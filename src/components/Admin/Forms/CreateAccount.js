@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import axios from 'axios';
 
 class CreateAccount extends Component {
   constructor(props){
@@ -70,7 +70,7 @@ class CreateAccount extends Component {
           })
         }
       }
-      
+
     }
   }
 
@@ -81,7 +81,11 @@ class CreateAccount extends Component {
     if (this.state.phone.length !== 14){
       return alert('Phone number must include area code and must be 10 digits long')
     }
-    console.log(this.state)
+    
+    let newMember = this.state;
+
+    axios.post(`/api/members`, newMember)
+    .then( res => alert(res) )
   }
 
   render() {
