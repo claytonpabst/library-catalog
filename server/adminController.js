@@ -49,16 +49,20 @@ module.exports = {
         const db = req.app.get('db');
         let book = req.body;
 
-        if (!book.title || !book.author || !book.series ||!book.year){
+        if (!book.title || !book.author || !book.series ||!book.year ||!book.copies){
             return res.status(200).send('must include all required book info')
         }
-        db.addBook([book.title, book.author, book.series, book.year])
-        .then( response => {
-            return res.status(200).json('Book was added to the database');
-        })
-        .catch( err => {
-            res.status(500).send("Whoops! Looks like there was an error: ", err);
-        })
+        for (let i = 0; i < book.copies; i ++){
+            db.addBook([book.title, book.author, book.series, book.year])
+            .then( response => {
+                if (i === book.copies - 1){
+                    return res.status(200).json('Book(s) successfully added to the database');
+                }
+            })
+            .catch( err => {
+                res.status(500).send("Whoops! Looks like there was an error: ", err);
+            })
+        }
     },
 
     addNewMember: function(req, res, next){
