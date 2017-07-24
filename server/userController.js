@@ -2,11 +2,24 @@ const app = require('./index.js');
 
 module.exports = {
 
-    searchBooksByTitle: function(req, res, next){
+    searchBooksByTitleAlph: function(req, res, next){
+        console.log('alph search title')
         const db = req.app.get('db');
         let title = req.params.title + '%';
-        
-        db.searchBooksByTitle([title])
+
+        db.searchBooksByTitleAlph([title])
+        .then( books => {
+            return res.status(200).json(books)
+        })
+        .catch( err => res.status(500).json(err) )
+    },
+
+    searchBooksByTitleYear: function(req, res, next){
+        console.log('year search title')
+        const db = req.app.get('db');
+        let title = req.params.title + '%';
+
+        db.searchBooksByTitleYear([title])
         .then( books => {
             return res.status(200).json(books)
         })

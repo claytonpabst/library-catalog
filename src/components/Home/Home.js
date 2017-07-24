@@ -29,19 +29,65 @@ class Home extends Component {
 
   handleSearch(){
     let apiURL = `/api/books/${this.state.searchBy}/${this.state.orderBy}/${this.state.userInput}`;
+    
     axios.get(apiURL)
     .then( res => {
       let results = res.data.slice();
+      let distinctArr = []
       for (let i = 0; i < results.length; i ++){
-        axios.get(`/api/books/availability/${results[i].title}`)
-        .then( nums => {
-          results[i].numCopies = nums.data.numCopies[0].count;
-          results[i].numAvailable = nums.data.numAvailable[0].count;
-          this.setState({
-            results: results
+
+        if (distArrIncludes(results[i].title)){
+          for (let j = 0; j < distinctArr.length; j++){
+            if (distinctArr[j].title === results[i].title){
+              distinctArr[j].copies += 1;
+              if (results[i].available.toLowerCase() === 'yes'){
+                distinctArr[j].available += 1;
+              }
+            }
+          }
+        }else{
+          distinctArr.push({
+            title: results[i].title,
+            author: results[i].author,
+            year: results[i].year,
+            series: results[i].series,
+            copies: 1,
+            available: 1
           })
-        })
+        }
       }
+
+      function distArrIncludes(title){
+        for (let j = 0; j < distinctArr.length; j++){
+          if (distinctArr[j].title === title){
+            return true
+          }
+        }
+        return false
+      }
+
+      this.setState({
+        results: distinctArr
+      })
+      console.log(distinctArr)
+
+      // **I had a foor loop set to run a new api call for every single result,
+      // but I figure doing less network requests is better than doing more. So
+      // instead I am sending back if the book is available or not with each
+      // result, and then looping through them myself to create a distinct array
+      // that keeps track of each result and how many copies/available there are
+
+      // for (let i = 0; i < results.length; i ++){
+      //   axios.get(`/api/books/availability/${results[i].title}`)
+      //   .then( nums => {
+      //     results[i].numCopies = nums.data.numCopies[0].count;
+      //     results[i].numAvailable = nums.data.numAvailable[0].count;
+      //     this.setState({
+      //       results: results
+      //     })
+      //   })
+      // }
+
     })
   }
 
@@ -107,8 +153,8 @@ class Home extends Component {
                       author={result.author}
                       series={result.series}
                       year={result.year}
-                      numCopies={result.numCopies}
-                      numAvailable={result.numAvailable} 
+                      numCopies={result.copies}
+                      numAvailable={result.available} 
                       />
                     </li>
                 })
