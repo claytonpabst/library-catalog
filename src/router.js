@@ -11,8 +11,8 @@ export default (
     <Switch>
         
         <Route component={ Home } path='/' exact />
-        <Route component={ LoginPage } path='/login' exact />
-        <Route component={ Admin } path='/admin' exact />
+        <Route component={ LoginPage } path='/login' />
+        <Route component={ Admin } path='/admin' />
 
     </Switch>
 )
