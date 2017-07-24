@@ -15,14 +15,24 @@ class CheckOut extends Component {
   }
  
   handleUpdates(e, str){
+    let arr = e.target.value.split('');
+
     if (str === 'bookid'){
-      this.setState({
-        bookid: e.target.value
-      })
+      if ( isNaN( Number(arr[arr.length-1]) ) ){
+        return alert('Only numbers can be entered into the BookID field')
+      }else{
+        this.setState({
+          bookid: e.target.value
+        })
+      }
     }else if (str === 'memberid'){
-      this.setState({
-        memberid: e.target.value
-      })
+      if ( isNaN( Number(arr[arr.length-1]) ) ){
+        return alert('Only numbers can be entered into the MemberID field')
+      }else{
+        this.setState({
+          memberid: e.target.value
+        })
+      }
     }else if (str === 'lastname'){
       this.setState({
         lastname: e.target.value
@@ -31,9 +41,11 @@ class CheckOut extends Component {
   }
 
   submitInfo(){
-    alert(this.state.bookid)
-    alert(this.state.memberid)
-    alert(this.state.lastname)
+    axios.put(`/api/books/checkout/${this.state.bookid}`, {
+      "memberid": this.state.memberid,
+      "lastname": this.state.lastname
+    })
+    .then( res => alert(res) )
   }
 
   render() {
@@ -43,11 +55,11 @@ class CheckOut extends Component {
           <h3>Please fill in the following information in order to check out a book</h3>
 
           <h3>BookID</h3>
-          <input placeholder='Enter the BookID here' 
+          <input placeholder='Enter the BookID here' value={ this.state.bookid }
           onChange={ (e) => this.handleUpdates(e, 'bookid') } />
 
           <h3>MemberID / Membership Number</h3>
-          <input placeholder='Enter the MemberID here' 
+          <input placeholder='Enter the MemberID here' value={ this.state.memberid } 
           onChange={ (e) => this.handleUpdates(e, 'memberid') } />
 
           <h3>Member's Last Name</h3>
