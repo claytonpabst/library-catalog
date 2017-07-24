@@ -9,7 +9,7 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      results: [1, 2],
+      results: [{title: 'When you search for a book, the results will display here, along with the total number of copies and the number we have available for checkout'}],
       userInput: '',
       searchBy: 'title',
       orderBy: 'alph'

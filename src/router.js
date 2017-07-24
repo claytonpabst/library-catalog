@@ -10,9 +10,9 @@ import Admin from './components/Admin/Admin.js';
 export default (
     <Switch>
         
-        <Route component={ Home } path='/' exact />
-        <Route component={ LoginPage } path='/login' />
-        <Route component={ Admin } path='/admin' />
+        <Route exact path='/' component={ Home } />
+        <Route exact path='/login' component={ LoginPage } />
+        <Route exact path='/admin' component={ Admin } />
 
     </Switch>
 )

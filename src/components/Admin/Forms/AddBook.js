@@ -9,7 +9,7 @@ class AddBook extends Component {
       author: '',
       series: '',
       year: '',
-      copies: ''
+      copies: 1
     }
 
     this.handleUpdates = this.handleUpdates.bind(this);
@@ -85,7 +85,7 @@ class AddBook extends Component {
           onChange={ (e) => this.handleUpdates(e, 'year') } />
 
           <h3>How Many Copies Are We Adding?</h3>
-          <input type="number" name="quantity" min="1" max="10" 
+          <input type="number" name="quantity" min="1" max="10" value={ this.state.copies }
           onChange={ (e) => this.handleUpdates(e, 'copies') } />
 
           <button onClick={ this.submitInfo }>Add Book</button>
