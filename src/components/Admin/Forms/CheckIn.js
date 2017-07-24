@@ -14,7 +14,7 @@ class CheckIn extends Component {
 
   changeID(e){
     let arr = e.target.value.split('');
-    if ( isNaN( Number(arr[arr.length-1]) ) ){
+    if ( isNaN( Number(arr[arr.length-1]) ) && arr.length ){
       return alert('Only numbers can be entered into the BookID field')
     }else{
       this.setState({
@@ -37,7 +37,7 @@ class CheckIn extends Component {
           value={ this.state.id }
           onChange={ this.changeID } />
 
-          <button onClick={ this.submitInfo }>Add Book</button>
+          <button onClick={ this.submitInfo }>Check In</button>
 
       </section>
     );
