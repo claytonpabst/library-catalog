@@ -20,12 +20,16 @@
 }
 
 .login_link{
-    width: 100px;
+    width: 115px;
     height: 60px;
     position: absolute;
     right: 0;
     top: 0;
-    cursor: default;
+    font-weight: bold;
+    line-height: 40px;
+    text-align: left;
+    color: #76323F;
+    text-decoration: none;
 }
 
 .search_for_h2{
