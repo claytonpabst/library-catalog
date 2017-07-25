@@ -92,6 +92,8 @@ class CreateAccount extends Component {
         return (
           <section className="create_account">
 
+              <h3 className='form_header'>Create Member Account</h3>
+
               <h3>The Following Information is required to create a new membership account</h3>
 
               <h3>Firstname</h3>

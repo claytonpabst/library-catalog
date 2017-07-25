@@ -65,6 +65,8 @@ class AddBook extends Component {
         return (
       <section className="add_book">
 
+          <h3 className='form_header'>Add New Book To Record</h3>
+
           <h3>Please fill in the following information in order to add a new book
             to the system. </h3>
 

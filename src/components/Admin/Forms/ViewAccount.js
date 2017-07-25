@@ -33,6 +33,8 @@ class ViewAccount extends Component {
         return (
       <section className="view_account">
 
+        <h3 className='form_header'>View A Member's Account</h3>
+
         <h3>Please provide the membership ID found on the back of the library card in order to view the account.</h3>
 
         <h3>MemberID</h3>

@@ -35,6 +35,8 @@ class DeleteBook extends Component {
 
       <section className="delete_book">
 
+        <h3 className='form_header'>Delete Book From Record</h3>
+
         <h3>The Following Information Is Required To Delete A Book From The System:</h3>
 
         <h3>BookID</h3>

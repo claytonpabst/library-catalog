@@ -39,6 +39,8 @@ class WaiveFees extends Component {
         return (
       <section className="waive_fees">
 
+        <h3 className='form_header'>Waive Fees</h3>
+
         <h3>Please enter the Membership ID of the member who's fees we are modifying. Then type the updated fee amount that you want to reflect on their account.</h3>
 
         <h3>MemberID of the member account we are updating</h3>

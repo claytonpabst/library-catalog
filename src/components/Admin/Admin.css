@@ -58,6 +58,19 @@
     cursor: pointer;
     display: block;
     margin-top: 12px;
+    background: #666;
+}
+
+.admin_form button:active{
+    background: #555;
+    box-shadow: inset 1px 1px 1px black;
+}
+
+.form_header{
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 20px;
+    margin-bottom: 15px;
 }
 
 .view_account ul{

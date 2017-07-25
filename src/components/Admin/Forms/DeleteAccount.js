@@ -41,6 +41,8 @@ class DeleteAccount extends Component {
         return (
       <section className="delete_account">
 
+        <h3 className='form_header'>Delete Member Account</h3>
+
         <h3>The Following Information Is Required To Delete A Membership Record:</h3>
 
         <h3>MemberID / Membership Number</h3>

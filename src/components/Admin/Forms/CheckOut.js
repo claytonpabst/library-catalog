@@ -52,6 +52,8 @@ class CheckOut extends Component {
         return (
       <section className="check_out">
 
+          <h3 className='form_header'>Check A Book Out</h3>
+
           <h3>Please fill in the following information in order to check out a book</h3>
 
           <h3>BookID</h3>

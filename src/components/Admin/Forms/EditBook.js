@@ -57,6 +57,8 @@ class EditBook extends Component {
         return (
       <section className="edit_book">
 
+          <h3 className='form_header'>Edit Existing Book</h3>
+
           <h3>Any information entered into the following fields WILL update the information for that book. Please verify all information is entered into the correct fields before submitting. If a field is left blank, no changes will be made.</h3>
 
           <h3>BookID of the book we are updating</h3>

@@ -32,6 +32,8 @@ class CheckIn extends Component {
         return (
       <section className="check_in">
 
+          <h3 className='form_header'>Check A Book Back In</h3>
+
           <h3>What is the BookID of the book we are checking back in?</h3>
           <input placeholder='Enter the BookID here' 
           value={ this.state.id }
