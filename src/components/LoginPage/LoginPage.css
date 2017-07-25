@@ -9,7 +9,7 @@
     width: 100%;
     font-size: 25px;
     font-weight: bold;
-    color: #B8BEDD;
+    color: #565656;
     position: absolute;
     top: calc(50% - 200px);
     text-shadow: 1px 1px 1px #100;
@@ -21,7 +21,7 @@
     position: absolute;
     left: calc(50% - 150px);
     top: calc(50% - 150px);
-    background: #9C89B8;
+    background: #C09F80;
     padding: 15px;
     border-radius: 5px;
     box-shadow: 3px 3px 3px #100;

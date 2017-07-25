@@ -3,7 +3,6 @@ const app = require('./index.js');
 module.exports = {
 
     searchBooksByTitleAlph: function(req, res, next){
-        console.log('alph search title')
         const db = req.app.get('db');
         let title = req.params.title + '%';
 
@@ -15,7 +14,6 @@ module.exports = {
     },
 
     searchBooksByTitleYear: function(req, res, next){
-        console.log('year search title')
         const db = req.app.get('db');
         let title = req.params.title + '%';
 

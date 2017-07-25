@@ -5,6 +5,7 @@
     overflow: hidden;
     margin: 0;
     padding: 0;
+    background: #d7cec7;
 }
 
 .side_nav{
@@ -17,7 +18,7 @@
     height: 50px;
     font-size: 10px;
     border: 1px solid #eee;
-    background: #666;
+    background: #C09F80;
     text-align: left;
     padding: 5px 5px 5px 5px;
     cursor: pointer;
@@ -35,6 +36,7 @@
     border: 1px solid black;
     padding: 15px 15px 15px 15px;
     text-align: left;
+    background: #fff;
 }
 
 .admin_form h3{
@@ -58,7 +60,7 @@
     cursor: pointer;
     display: block;
     margin-top: 12px;
-    background: #666;
+    background: #d7cec7;
 }
 
 .admin_form button:active{
@@ -94,6 +96,7 @@
     .side_nav{
         width: 200px;
         float: left;
+        margin-left: 30px;
     }
 
     .side_nav li{
@@ -104,10 +107,11 @@
     }
 
     .admin_form{
-        width: calc(100% - 210px);
+        width: calc(100% - 310px);
         height: 95vh;
         float: left;
         border: 1px solid black;
+        margin-left: 5px;
     }
 
 }
