@@ -5,6 +5,7 @@ class EditBook extends Component {
   constructor(props){
     super(props);
     this.state = {
+      bookid: '',
       title: '',
       author: '',
       series: '',
@@ -16,7 +17,11 @@ class EditBook extends Component {
   }
  
   handleUpdates(e, str){
-    if (str === 'title'){
+    if (str === 'bookid'){
+      this.setState({
+        bookid: e.target.value
+      })
+    }else if (str === 'title'){
       this.setState({
         title: e.target.value
       })
@@ -37,14 +42,14 @@ class EditBook extends Component {
 
   submitInfo(){
     let today  = new Date();
-    let { year, id } = this.state;
+    let { year, bookid } = this.state;
 
     if (year < 0 || year > today.getFullYear()){
       return alert(`year ${year} is outside the acceptable date range`)
     }
 
     let newInfo = this.state;
-    axios.put(`/api/books/${id}`, newInfo)
+    axios.put(`/api/books/${bookid}`, newInfo)
     .then( res => alert(res) )
   }
 
@@ -53,6 +58,10 @@ class EditBook extends Component {
       <section className="edit_book">
 
           <h3>Any information entered into the following fields WILL update the information for that book. Please verify all information is entered into the correct fields before submitting. If a field is left blank, no changes will be made.</h3>
+
+          <h3>BookID of the book we are updating</h3>
+          <input placeholder='Enter the BookID here' 
+          onChange={ (e) => this.handleUpdates(e, 'bookid') } />
 
           <h3>Title</h3>
           <input placeholder='Enter the title here' 

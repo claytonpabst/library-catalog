@@ -5,6 +5,7 @@ class EditAccount extends Component {
   constructor(props){
     super(props);
     this.state = {
+      memeberid: '',
       firstname: '',
       lastname: '',
       streetAddress: '',
@@ -19,7 +20,16 @@ class EditAccount extends Component {
   }
  
   handleUpdates(e, str){
-    if (str === 'firstname'){
+    if (str === 'memeberid'){
+      let arr = e.target.value.split('');
+      if ( isNaN(Number(arr[arr.length-1])) && arr.length ){
+        alert('Only numbers can be entered into the MemberID field.')
+      }else{
+        this.setState({
+          memeberid: e.target.value
+        })
+      }
+    }else if (str === 'firstname'){
       this.setState({
         firstname: e.target.value
       })
@@ -72,7 +82,7 @@ class EditAccount extends Component {
     }
     
     let newInfo = this.state;
-    axios.put(`/api/members/this.state.id`, newInfo)
+    axios.put(`/api/members/${ this.state.memeberid }`, newInfo)
     .then( res => alert(res) )
     
   }
@@ -82,6 +92,10 @@ class EditAccount extends Component {
       <section className="edit_account">
 
         <h3>Any information entered into the following fields WILL update the information on the members account. Please verify all information is entered into the correct fields before submitting. If a field is left blank, no changes will be made.</h3>
+
+        <h3>MemberID of the member account we are updating</h3>
+        <input placeholder='Enter the MemberID here' 
+        onChange={ (e) => this.handleUpdates(e, 'memeberid') } />
 
         <h3>Firstname</h3>
         <input placeholder='Firstname' 
