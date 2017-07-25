@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Home.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import Book from './Book/Book.js';
 
@@ -114,6 +115,8 @@ class Home extends Component {
       <div className="home">
 
           <section className='search_box'>
+
+            <Link className='login_link' to='/login'></Link>
 
             <h2 className='search_for_h2'>Search For:</h2>
             <input className='user_search' 

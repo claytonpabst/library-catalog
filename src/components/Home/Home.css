@@ -19,6 +19,15 @@
     text-shadow: 1px 1px 1px #d7cec7;
 }
 
+.login_link{
+    width: 100px;
+    height: 60px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: default;
+}
+
 .search_for_h2{
     font-size: 24px;
     width: 200px;
