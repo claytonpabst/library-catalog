@@ -45,10 +45,10 @@ class AddBook extends Component {
     let {title, author, series, year, copies} = this.state;
 
     if (year < 0 || year > today.getFullYear()){
-      alert(`year ${year} is outside the acceptable date range`)
+      return alert(`year ${year} is outside the acceptable date range`)
     }
     if (copies > 10){
-      alert(`You are attempting to add ${copies} copies to the system. Cannot add more than 10 copies at once!`)
+      return alert(`You are attempting to add ${copies} copies to the system. Cannot add more than 10 copies at once!`)
     }
 
     axios.post('/api/books', {

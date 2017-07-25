@@ -81,7 +81,7 @@ class EditAccount extends Component {
     return (
       <section className="edit_account">
 
-        <h3>Any information entered into the following fields WILL update the information on the members account. Please verify all information is entered into the correct fields before submitting.</h3>
+        <h3>Any information entered into the following fields WILL update the information on the members account. Please verify all information is entered into the correct fields before submitting. If a field is left blank, no changes will be made.</h3>
 
         <h3>Firstname</h3>
         <input placeholder='Firstname' 
