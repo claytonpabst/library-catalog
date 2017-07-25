@@ -70,25 +70,6 @@ class Home extends Component {
       this.setState({
         results: distinctArr
       })
-      console.log(distinctArr)
-
-      // **I had a foor loop set to run a new api call for every single result,
-      // but I figure doing less network requests is better than doing more. So
-      // instead I am sending back if the book is available or not with each
-      // result, and then looping through them myself to create a distinct array
-      // that keeps track of each result and how many copies/available there are
-
-      // for (let i = 0; i < results.length; i ++){
-      //   axios.get(`/api/books/availability/${results[i].title}`)
-      //   .then( nums => {
-      //     results[i].numCopies = nums.data.numCopies[0].count;
-      //     results[i].numAvailable = nums.data.numAvailable[0].count;
-      //     this.setState({
-      //       results: results
-      //     })
-      //   })
-      // }
-
     })
   }
 
@@ -146,8 +127,6 @@ class Home extends Component {
 
           <section className='search_results'>
 
-            {/* <button className='pagination prev_results'>Prev</button>
-            <button className='pagination next_results'>Next</button> */}
             <ul className='results_container'>
               {
                 this.state.results.map( (result, i) => {
