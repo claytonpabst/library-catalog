@@ -36,7 +36,7 @@ class Admin extends Component {
     }else if (this.state.currentForm === 2){
       formToShow = <CheckIn />
     }else if (this.state.currentForm === 3){
-      formToShow = <ViewAccount />
+      formToShow = <ViewAccount changeForm={ this.changeForm } />
     }else if (this.state.currentForm === 4){
       formToShow = <CreateAccount />
     }else if (this.state.currentForm === 5){

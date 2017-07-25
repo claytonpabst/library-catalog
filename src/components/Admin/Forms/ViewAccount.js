@@ -6,8 +6,8 @@ class ViewAccount extends Component {
     super(props);
     this.state = {
       memberid: '',
-      fields: ['firstname:  ', 'lastname:  ', 'street address:  ', 'city:  ', 'state:  ', 'zip:  ', 'phone:  '],
-      memberInfo: ['loren', 'pabst', '1944 n 1575 w', 'layton', 'ut', '84041', '801-825-8909']
+      fields: ['Firstname', 'Lastname', 'Street Address', 'City', 'State', 'Zip', 'Phone', 'Fees'],
+      memberInfo: ['loren', 'pabst', '1944 n 1575 w', 'layton', 'ut', '84041', '801-825-8909', 3.55]
     }
 
     this.changeID = this.changeID.bind(this);
@@ -40,12 +40,16 @@ class ViewAccount extends Component {
         onChange={ this.changeID } />
 
         <button onClick={ this.submit }>Submit</button>
-        <button>Edit Acct</button>
+        <button onClick={ () => this.props.changeForm(5) }>Edit Acct</button>
 
         <ul>
           {
             this.state.memberInfo.map( (item, i) => {
-              return <li key={i}>{ this.state.fields[i] } { item }</li>
+              if (this.state.fields[i] === 'Fees'){
+                return <li key={i}><span>{ this.state.fields[i] }</span>: ${ item }</li>
+              }else{
+                return <li key={i}><span>{ this.state.fields[i] }</span>: { item }</li>
+              }
             })
           }
         </ul>

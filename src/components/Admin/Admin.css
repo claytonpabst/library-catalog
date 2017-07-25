@@ -60,6 +60,22 @@
     margin-top: 12px;
 }
 
+.view_account ul{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-top: 10px;
+    padding: 8px 8px 8px 8px;
+}
+
+.view_account ul li{
+    margin-top: 6px;
+}
+
+.view_account ul li span{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 @media(min-width:700px){
     
     .side_nav{
