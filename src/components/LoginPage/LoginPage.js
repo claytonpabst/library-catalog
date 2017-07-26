@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './LoginPage.css';
 
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 class LoginPage extends Component {
@@ -10,7 +11,9 @@ class LoginPage extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      loginResults: 'successfully logged in as yourmamashouse',
+      showBttn: true
     }
 
     this.authorizeLogin = this.authorizeLogin.bind(this);
@@ -24,7 +27,18 @@ class LoginPage extends Component {
       "password": this.state.password
     })
     .then( res => {
-      console.log(res);
+      let data = res.data;
+      if (data[0].username === this.state.username){
+        this.setState({
+          showBttn: true,
+          loginResults: 'Succesfully Logged in as ' + data[0].username
+        })
+      }else{
+        this.setState({
+          showBttn: false,
+          loginResults: res.data
+        })
+      }
     })
   }
 
@@ -41,6 +55,12 @@ class LoginPage extends Component {
   }
 
   render() {
+    
+    let routeBttn = null;
+    if (this.state.showBttn){
+      routeBttn = <Link to='/admin'><button>OK</button></Link>
+    }
+
     return (
       <div className="login_page">
 
@@ -53,6 +73,11 @@ class LoginPage extends Component {
             <input placeholder='password' type='password' onChange={ this.updatePassword } />
             <button onClick={ this.authorizeLogin } >Login</button>
           </div> 
+
+          <div className='login_results'>
+            { this.state.loginResults }
+            { routeBttn }
+          </div>
 
       </div>
     );
