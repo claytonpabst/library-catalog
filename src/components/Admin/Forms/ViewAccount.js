@@ -7,7 +7,7 @@ class ViewAccount extends Component {
     this.state = {
       memberid: '',
       fields: ['Firstname', 'Lastname', 'Street Address', 'City', 'State', 'Zip', 'Phone', 'Fees'],
-      memberInfo: ['loren', 'pabst', '1944 n 1575 w', 'layton', 'ut', '84041', '801-825-8909', 3.55]
+      memberInfo: ['', '', '', '', '', '', '', null]
     }
 
     this.changeID = this.changeID.bind(this);
@@ -23,9 +23,13 @@ class ViewAccount extends Component {
   submit(){
     axios.get(`/api/members/${ this.state.memberid }`)
     .then( res => {
-      this.setState({
-        memberInfo: res.data
-      }) 
+      if (res.data[0].city){
+        this.setState({
+          memberInfo: res.data[0]
+        })
+      }else{
+        alert(res)
+      }
     })
   }
 
