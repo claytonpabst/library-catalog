@@ -13,7 +13,7 @@ class LoginPage extends Component {
       username: '',
       password: '',
       loginResults: '',
-      showBttn: true
+      showBttn: false
     }
 
     this.authorizeLogin = this.authorizeLogin.bind(this);
@@ -59,6 +59,8 @@ class LoginPage extends Component {
     let routeBttn = null;
     if (this.state.showBttn){
       routeBttn = <Link to='/admin'><button>OK</button></Link>
+    }else{
+      routeBttn = null
     }
 
     return (
