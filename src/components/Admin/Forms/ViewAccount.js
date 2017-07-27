@@ -6,8 +6,7 @@ class ViewAccount extends Component {
     super(props);
     this.state = {
       memberid: '',
-      fields: ['Firstname', 'Lastname', 'Street Address', 'City', 'State', 'Zip', 'Phone', 'Fees'],
-      memberInfo: ['', '', '', '', '', '', '', null]
+      memberInfo: {}
     }
 
     this.changeID = this.changeID.bind(this);
@@ -28,13 +27,14 @@ class ViewAccount extends Component {
           memberInfo: res.data[0]
         })
       }else{
-        alert(res)
+        alert(res.data)
       }
     })
   }
 
   render() {
-        return (
+    let member = this.state.memberInfo
+    return (
       <section className="view_account">
 
         <h3 className='form_header'>View A Member's Account</h3>
@@ -49,15 +49,14 @@ class ViewAccount extends Component {
         <button onClick={ () => this.props.changeForm(5) }>Edit Acct</button>
 
         <ul>
-          {
-            this.state.memberInfo.map( (item, i) => {
-              if (this.state.fields[i] === 'Fees'){
-                return <li key={i}><span>{ this.state.fields[i] }</span>: ${ item }</li>
-              }else{
-                return <li key={i}><span>{ this.state.fields[i] }</span>: { item }</li>
-              }
-            })
-          }
+          <li>Firstname: {member.firstname}</li>
+          <li>Lastname: {member.lastname}</li>
+          <li>Streetaddress: {member.streetaddress}</li>
+          <li>City: {member.city}</li>
+          <li>State: {member.state}</li>
+          <li>Zip: {member.zip}</li>
+          <li>Phone: {member.phone}</li>
+          <li>Fees: {member.fees}</li>
         </ul>
 
       </section>

@@ -1,6 +1,5 @@
 const app = require('./index.js');
 const config = require('./config.js');
-var authorizedLogin = false;
 
 module.exports = {
 
@@ -8,7 +7,7 @@ module.exports = {
         const db = req.app.get('db');
         let id = req.params.id;
 
-        if (!authorizedLogin){
+        if (!req.session.authorizedLogin){
             return res.status(200).send('Must be logged in to proceed');
         }
 
@@ -28,8 +27,7 @@ module.exports = {
         db.login([req.body.username, req.body.password])
         .then( response => {
             if (response.length){
-                req.session.id = response[0].adminid + config.secret;
-                authorizedLogin = true;
+                req.session.authorizedLogin = true;
                 return res.status(200).json(response);
             }else{
                 return res.status(200).send('Invalid username or password')
@@ -48,6 +46,10 @@ module.exports = {
     addBook: function(req, res, next){
         const db = req.app.get('db');
         let book = req.body;
+
+        if (!req.session.authorizedLogin){
+            return res.status(200).send('Must be logged in to proceed');
+        }
 
         if (!book.title || !book.author || !book.series ||!book.year ||!book.copies){
             return res.status(200).send('must include all required book info')
@@ -69,6 +71,10 @@ module.exports = {
         const db = req.app.get('db');
         let member = req.body;
 
+        if (!req.session.authorizedLogin){
+            return res.status(200).send('Must be logged in to proceed');
+        }
+
         if (!member.firstname || !member.lastname || !member.streetaddress 
             ||!member.city ||!member.state ||!member.zip ||!member.phone){
             return res.status(200).send('must include all required membership info')
@@ -88,6 +94,10 @@ module.exports = {
         const db = req.app.get('db');
         let member = req.body;
         let id = req.params.id;
+
+        if (!req.session.authorizedLogin){
+            return res.status(200).send('Must be logged in to proceed');
+        }
 
         db.viewMembersAccount([id])
         .then( result => {
@@ -128,6 +138,10 @@ module.exports = {
         const db = req.app.get('db');
         let book = req.body;
         let id = req.params.id;
+
+        if (!req.session.authorizedLogin){
+            return res.status(200).send('Must be logged in to proceed');
+        }
 
         db.findBookById([id])
         .then( result => {
@@ -172,6 +186,10 @@ module.exports = {
         let checkoutDate = today.toLocaleDateString()  ; 
         let dueDate = new Date(today.getFullYear(), today.getMonth()+1, today.getDate()).toLocaleDateString();
 
+        if (!req.session.authorizedLogin){
+            return res.status(200).send('Must be logged in to proceed');
+        }
+
         if (!memberid || !lastname){
             return res.status(200).send('Must include member id and last name to check out a book')
         }
@@ -205,6 +223,11 @@ module.exports = {
     checkBookBackIn: function(req, res, next){
         const db = req.app.get('db');
         let bookid = req.params.bookid;
+
+        if (!req.session.authorizedLogin){
+            return res.status(200).send('Must be logged in to proceed');
+        }
+
         db.checkBookBackIn([bookid])
         .then( response => {
             return res.status(200).send('Book was returned successfully!')
@@ -215,6 +238,10 @@ module.exports = {
     deleteBook: function(req, res, next){
         const db = req.app.get('db');
         let id = req.params.id;
+
+        if (!req.session.authorizedLogin){
+            return res.status(200).send('Must be logged in to proceed');
+        }
         
         db.findBookById([id])
         .then(result => {
@@ -235,6 +262,10 @@ module.exports = {
     deleteMember: function(req, res, next){
         const db = req.app.get('db');
         let member = req.body;
+
+        if (!req.session.authorizedLogin){
+            return res.status(200).send('Must be logged in to proceed');
+        }
 
         if (!member.id || !member.lastname){
             return res.status(200).send('must include id AND last name of member to delete membership record')
