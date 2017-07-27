@@ -31,7 +31,8 @@ class WaiveFees extends Component {
   }
 
   submitInfo(){
-    axios.put(`/api/members/${ this.state.memberid }`, {})
+    let member = this.state
+    axios.put(`/api/members/${ this.state.memberid }`, member)
     .then( res => alert(res) )
   }
 
