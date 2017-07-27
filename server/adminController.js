@@ -94,6 +94,7 @@ module.exports = {
         const db = req.app.get('db');
         let member = req.body;
         let id = req.params.id;
+        console.log(req)
 
         if (!req.session.authorizedLogin){
             return res.status(200).send('Must be logged in to proceed');
@@ -124,6 +125,7 @@ module.exports = {
                     db.updateMemberPhone([member.phone, id])
                 }
                 if (member.fees){
+                    console.log(member.fees)
                     db.updateMemberFees([member.fees, id])
                 }
                 return res.status(200).send('Membership record was updated properly')

@@ -14,13 +14,13 @@ class WaiveFees extends Component {
   }
 
   handleUpdates(e, str){
-    if (str === 'memeberid'){
+    if (str === 'memberid'){
       let arr = e.target.value.split('');
       if ( isNaN(Number(arr[arr.length-1])) && arr.length ){
         alert('Only numbers can be entered into the MemberID field.')
       }else{
         this.setState({
-          memeberid: e.target.value
+          memberid: e.target.value
         })
       }
     }else if (str === 'fees'){
@@ -33,7 +33,8 @@ class WaiveFees extends Component {
   submitInfo(){
     let member = this.state
     axios.put(`/api/members/${ this.state.memberid }`, member)
-    .then( res => alert(res) )
+    .then( res => alert(res.data) )
+    console.log(this.state)
   }
 
   render() {

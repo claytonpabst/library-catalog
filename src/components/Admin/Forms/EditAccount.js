@@ -74,16 +74,16 @@ class EditAccount extends Component {
 
   submitInfo(){
 
-    if (this.state.zip.length !== 5){
+    if (this.state.zip && this.state.zip.length !== 5){
       return alert('Zip code must be 5 digits long')
     }
-    if (this.state.phone.length !== 14){
+    if (this.state.phone && this.state.phone.length !== 10){
       return alert('Phone number must include area code and must be 10 digits long')
     }
     
     let newInfo = this.state;
     axios.put(`/api/members/${ this.state.memeberid }`, newInfo)
-    .then( res => alert(res) )
+    .then( res => alert(res.data) )
     
   }
 
