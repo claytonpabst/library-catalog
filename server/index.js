@@ -54,7 +54,11 @@ app.put('/api/books/checkin/:bookid', adminController.checkBookBackIn);
 app.delete('/api/books/:id', adminController.deleteBook);
 app.delete('/api/members/:id', adminController.deleteMember);
 
-
+// next updates: 
+// list all books with their id on the backend
+// add a link to go back home from the admin page
+// add an about box for an employer to read about the site
+// when viewing acct, can click edit acct and pass info to the other form
 
 
 app.listen(config.port, console.log("you are now connected on " + config.port));
