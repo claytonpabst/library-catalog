@@ -188,6 +188,8 @@ module.exports = {
     },
 
     checkoutBookToMember: function(req, res, next){
+        // Future update - make sure the book is available before allowing
+        // the librarian to check it out
         const db = req.app.get('db');
         let bookid = req.params.bookid;
         let {memberid, lastname} = req.body;

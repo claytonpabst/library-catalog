@@ -45,7 +45,7 @@ class CheckOut extends Component {
       "memberid": this.state.memberid,
       "lastname": this.state.lastname
     })
-    .then( res => alert(res) )
+    .then( res => alert(res.data) )
   }
 
   render() {
