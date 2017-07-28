@@ -44,11 +44,14 @@ class AddBook extends Component {
     let today  = new Date();
     let {title, author, series, year, copies} = this.state;
 
-    if (year < 0 || year > today.getFullYear()){
+    if (year < 0 || year > today.getFullYear() || !year){
       return alert(`year ${year} is outside the acceptable date range`)
     }
     if (copies > 10){
       return alert(`You are attempting to add ${copies} copies to the system. Cannot add more than 10 copies at once!`)
+    }
+    if (copies < 1 || !copies){
+      return alert('Must add at least one copy to the database')
     }
 
     axios.post('/api/books', {
@@ -58,7 +61,7 @@ class AddBook extends Component {
       "year": year,
       "copies": copies
     })
-    .then( res => alert(res) )
+    .then( res => alert(res.data) )
   }
 
   render() {
@@ -79,7 +82,7 @@ class AddBook extends Component {
           onChange={ (e) => this.handleUpdates(e, 'author') } />
 
           <h3>Series</h3>
-          <input placeholder='Enter the name of the series here' 
+          <input placeholder='Enter the name of the series here. This field may be left blank intentionally' 
           onChange={ (e) => this.handleUpdates(e, 'series') } />
 
           <h3>Year It Was Published</h3>

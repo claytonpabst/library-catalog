@@ -51,8 +51,8 @@ module.exports = {
             return res.status(200).send('Must be logged in to proceed');
         }
 
-        if (!book.title || !book.author || !book.series ||!book.year ||!book.copies){
-            return res.status(200).send('must include all required book info')
+        if (!book.title || !book.author ||!book.year ||!book.copies){
+            return res.status(200).send('must include all required book info. Series field may be blank however.')
         }
         for (let i = 0; i < book.copies; i ++){
             db.addBook([book.title, book.author, book.series, book.year])
