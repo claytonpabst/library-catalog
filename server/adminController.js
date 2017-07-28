@@ -239,9 +239,17 @@ module.exports = {
             return res.status(200).send('Must be logged in to proceed');
         }
 
-        db.checkBookBackIn([bookid])
-        .then( response => {
-            return res.status(200).send('Book was returned successfully!')
+        db.findBookById([bookid])
+        .then( bookExists => {
+            if ( bookExists.length ){
+                db.checkBookBackIn([bookid])
+                .then( response => {
+                    return res.status(200).send('Book was returned successfully!')
+                })
+                .catch( err => res.status(500).send(err) )
+            }else{
+                return res.status(200).send('No book found by that Book ID')
+            }
         })
         .catch( err => res.status(500).send(err) )
     },

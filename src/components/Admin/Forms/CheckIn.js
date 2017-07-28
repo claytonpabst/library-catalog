@@ -25,7 +25,7 @@ class CheckIn extends Component {
 
   submitInfo(){
     axios.put(`/api/books/checkin/${this.state.id}`)
-    .then( res => alert(res) )
+    .then( res => alert(res.data) )
   }
 
   render() {
