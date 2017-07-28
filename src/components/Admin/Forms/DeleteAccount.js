@@ -32,9 +32,8 @@ class DeleteAccount extends Component {
   }
 
   submit(){
-    let member = this.state
-    axios.delete('/api/members', member)
-    .then( res => alert(res) )
+    axios.delete(`/api/members/${this.state.memberid}?lastname=${this.state.lastname}`)
+    .then( res => alert(res.data) )
   }
 
   render() {

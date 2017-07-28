@@ -52,7 +52,7 @@ app.put('/api/books/checkout/:bookid', adminController.checkoutBookToMember);
 app.put('/api/books/checkin/:bookid', adminController.checkBookBackIn);
 
 app.delete('/api/books/:id', adminController.deleteBook);
-app.delete('/api/members', adminController.deleteMember);
+app.delete('/api/members/:id', adminController.deleteMember);
 
 
 

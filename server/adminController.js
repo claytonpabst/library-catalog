@@ -269,24 +269,25 @@ module.exports = {
     },
 
     deleteMember: function(req, res, next){
+        console.log(req.query.lastname);
         const db = req.app.get('db');
-        let member = req.body;
+        let id = req.params.id;
+        let lastname = req.query.lastname;
 
         if (!req.session.authorizedLogin){
             return res.status(200).send('Must be logged in to proceed');
         }
 
-        if (!member.id || !member.lastname){
+        if (!id || !lastname){
             return res.status(200).send('must include id AND last name of member to delete membership record')
         }
 
-        console.log(member)
-        db.findMember([member.id, member.lastname])
+        db.findMember([id, lastname])
         .then(result => {
             if (result.length){
-                db.deleteMember([member.id])
+                db.deleteMember([id])
                 .then( response => {
-                    return res.status(200).json( {status: 'Membership record was deleted'} );
+                    return res.status(200).json( `Membership record for ${lastname} with id of ${id} was deleted` );
                 })
             }else{
                 return res.status(200).send('No membership record found with that id and last name')
