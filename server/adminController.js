@@ -70,20 +70,29 @@ module.exports = {
     addNewMember: function(req, res, next){
         const db = req.app.get('db');
         let member = req.body;
+        let phone = member.phone.split('');
+        for (var i = phone.length; i >= 0; i--){
+            if (phone[i] === '-'){
+                phone.splice(i, 1)
+            }
+        }
+        phone.shift();
+        phone = phone.join('');
 
         if (!req.session.authorizedLogin){
             return res.status(200).send('Must be logged in to proceed');
         }
 
-        if (!member.firstname || !member.lastname || !member.streetaddress 
+        if (!member.firstname || !member.lastname || !member.streetAddress 
             ||!member.city ||!member.state ||!member.zip ||!member.phone){
             return res.status(200).send('must include all required membership info')
         }
 
-        db.addNewMember([member.firstname, member.lastname, member.streetaddress, member.city,
+        db.addNewMember([member.firstname, member.lastname, member.streetAddress, member.city,
         member.state, member.zip, member.phone])
         .then( response => {
-            return res.status(200).json('New member was added to the database');
+            response = response[0];
+            return res.status(200).json(`${response.firstname} ${response.lastname} was added to the database with a new MemberID of ` + response.userid);
         })
         .catch( err => {
             res.status(500).send(err);
@@ -94,7 +103,6 @@ module.exports = {
         const db = req.app.get('db');
         let member = req.body;
         let id = req.params.id;
-        console.log(req)
 
         if (!req.session.authorizedLogin){
             return res.status(200).send('Must be logged in to proceed');
@@ -125,7 +133,6 @@ module.exports = {
                     db.updateMemberPhone([member.phone, id])
                 }
                 if (member.fees){
-                    console.log(member.fees)
                     db.updateMemberFees([member.fees, id])
                 }
                 return res.status(200).send('Membership record was updated properly')
@@ -250,7 +257,7 @@ module.exports = {
             if (result.length){
                 db.deleteBook([id])
                 .then( response => {
-                    return res.status(200).json( {status: 'Book was deleted successfully'} );
+                    return res.status(200).json( `Book ${id} was deleted successfully` );
                 })
             }else{
                 return res.status(200).send('No book found by that id')

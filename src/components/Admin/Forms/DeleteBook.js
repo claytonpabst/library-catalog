@@ -27,7 +27,7 @@ class DeleteBook extends Component {
 
   submit(){
     axios.delete(`/api/books/${this.state.bookid}`)
-    .then( res => alert(res) )
+    .then( res => alert(res.data) )
   }
 
   render() {

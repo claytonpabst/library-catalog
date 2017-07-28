@@ -85,7 +85,10 @@ class CreateAccount extends Component {
     let newMember = this.state;
 
     axios.post(`/api/members`, newMember)
-    .then( res => alert(res) )
+    .then( res => {
+      console.log(res.data)
+      return alert(res.data) 
+    })
   }
 
   render() {

@@ -50,7 +50,7 @@ class EditBook extends Component {
 
     let newInfo = this.state;
     axios.put(`/api/books/${bookid}`, newInfo)
-    .then( res => alert(res) )
+    .then( res => alert(res.data) )
   }
 
   render() {
