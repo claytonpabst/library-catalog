@@ -72,9 +72,16 @@ class Admin extends Component {
           </ul>
 
           <section className='admin_form'>
-            <Link className='home_link' to='/' >Search Books</Link>
+            <Link className='home_link admin_nav' to='/' >Search Books</Link>
+            <div className='logout_btn admin_nav'>Logout</div>
             { formToShow }
           </section>
+
+          <div className='logout_modal'>
+            <p>Are you sure you want to logout?</p>
+            <button>Yes</button>
+            <button>No</button>
+          </div>
 
       </section>
     );

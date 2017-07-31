@@ -39,23 +39,31 @@
     background: #fff;
 }
 
-.home_link{
+.admin_nav{
     width: 160px;
     height: 40px;
     line-height: 40px;
     background: #565656;
     color: #d7cec7;
     position: absolute;
-    top: 15px;
     right: 95px;
     border-radius: 3px;
     text-decoration: none;
     text-align: center;
     font-weight: bold;
+    cursor: pointer;
 }
 
-.home_link:hover{
+.admin_nav:hover{
     background: #000;
+}
+
+.logout_btn{
+    top: 15px;
+}
+
+.home_link{
+    top: 60px;
 }
 
 .admin_form h3{
@@ -108,6 +116,28 @@
 .view_account ul li span{
     font-weight: bold;
     text-decoration: underline;
+}
+
+.logout_modal{
+    width: 200px;
+    height: 160px;
+    position: fixed;
+    left: calc(50% - 100px);
+    top: calc(50% - 80px);
+    background: #bbb;
+    padding: 5px 5px 5px 5px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px black;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.logout_modal p{
+    width: 160px;
+    height: 40px;
+    line-height: 20px;
+    position: relative;
+    left: 20px;
 }
 
 @media(min-width:700px){
