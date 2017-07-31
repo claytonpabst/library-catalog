@@ -63,7 +63,6 @@ class CreateAccount extends Component {
         alert('Only numbers can be entered into phone number field.')
       }else{
         if (arr.length < 2){
-          console.log(arr)
         }else{
           this.setState({
             phone: arr.join('')
