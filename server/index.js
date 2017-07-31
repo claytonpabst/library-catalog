@@ -24,8 +24,8 @@ massive(config.connection)
 
 app.use(express.static(__dirname + './../build'))
 
-var userController = require("./userController.js");
-var adminController = require("./adminController.js");
+const userController = require("./userController.js");
+const adminController = require("./adminController.js");
 
 
 // Front End User Endpoints
@@ -55,10 +55,10 @@ app.delete('/api/books/:id', adminController.deleteBook);
 app.delete('/api/members/:id', adminController.deleteMember);
 
 // next updates: 
-// list all books with their id on the backend
+// list all books with their id - either add a form, or have that as the default option on the user side
 // add a link to go back home from the admin page
-// add an about box for an employer to read about the site
+// add an about box for an employer to read about the site - let them know which books they can search. maybe try and keep it on app.js state, and display diff things depending on the router.
 // when viewing acct, can click edit acct and pass info to the other form
-
+// successful login re-route on the backend like with Auth0
 
 app.listen(config.port, console.log("you are now connected on " + config.port));

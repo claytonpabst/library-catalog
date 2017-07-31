@@ -39,6 +39,25 @@
     background: #fff;
 }
 
+.home_link{
+    width: 160px;
+    height: 40px;
+    line-height: 40px;
+    background: #565656;
+    color: #d7cec7;
+    position: absolute;
+    top: 15px;
+    right: 95px;
+    border-radius: 3px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+.home_link:hover{
+    background: #000;
+}
+
 .admin_form h3{
     margin-bottom: 2px;
     margin-top: 12px;

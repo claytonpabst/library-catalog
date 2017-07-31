@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Admin.css';
+import { Link } from 'react-router-dom';
 
 import AddBook from './Forms/AddBook.js';
 import CheckIn from './Forms/CheckIn.js';
@@ -71,6 +72,7 @@ class Admin extends Component {
           </ul>
 
           <section className='admin_form'>
+            <Link className='home_link' to='/' >Search Books</Link>
             { formToShow }
           </section>
 
