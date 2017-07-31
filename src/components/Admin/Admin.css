@@ -140,6 +140,11 @@
     left: 20px;
 }
 
+.logout_modal button{
+    margin: 5px 5px 5px 5px;
+    cursor: pointer;
+}
+
 @media(min-width:700px){
     
     .side_nav{
