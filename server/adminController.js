@@ -39,8 +39,8 @@ module.exports = {
     },
 
     logout: function(req, res, next){
-        authorizedLogin = false;
-        req.session.id = null;
+        req.session.authorizedLogin = false;
+        return res.status(200).send('User has logged out');
     },
 
     addBook: function(req, res, next){

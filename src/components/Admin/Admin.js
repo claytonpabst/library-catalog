@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Admin.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import AddBook from './Forms/AddBook.js';
 import CheckIn from './Forms/CheckIn.js';
@@ -18,15 +19,40 @@ class Admin extends Component {
   constructor(props){
     super(props);
     this.state = {
-      currentForm: 1
+      currentForm: 1,
+      showLogoutModal: false,
+      showLoggedOut: false
     }
 
+    this.toggleLogoutModal = this.toggleLogoutModal.bind(this)
     this.changeForm = this.changeForm.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   changeForm(num){
     this.setState({
       currentForm: num
+    })
+  }
+
+  toggleLogoutModal(str){
+    let newVal;
+    if (str === 'close'){
+      newVal = false;
+    }else{
+      newVal = !this.state.showLogoutModal
+    }
+    this.setState({
+      showLogoutModal: newVal
+    })
+  }
+
+  handleLogout(){
+    axios.post(`/api/logout`)
+    .then( response => {
+      this.setState({
+        showLoggedOut: true
+      })
     })
   }
 
@@ -54,6 +80,25 @@ class Admin extends Component {
       formToShow = <WaiveFees />
     }
 
+    let logoutModal = null;
+    if (this.state.showLogoutModal){
+      if (this.state.showLoggedOut){
+        logoutModal = 
+          <div className='logout_modal'>
+            <p>Successfully Logged Out</p>
+            <Link to='/'>OK</Link>
+          </div>
+      }else{
+        logoutModal = 
+          <div className='logout_modal'>
+            <p>Are you sure you want to logout?</p>
+            <button onClick={ this.handleLogout }>Yes</button>
+            <button onClick={ () => this.toggleLogoutModal('close') }>No</button>
+          </div>
+      }
+    }else{
+      logoutModal = null;
+    }
 
     return (
       <section className="admin">
@@ -73,15 +118,11 @@ class Admin extends Component {
 
           <section className='admin_form'>
             <Link className='home_link admin_nav' to='/' >Search Books</Link>
-            <div className='logout_btn admin_nav'>Logout</div>
+            <div className='logout_btn admin_nav' onClick={ this.toggleLogoutModal }>Logout</div>
             { formToShow }
           </section>
 
-          <div className='logout_modal'>
-            <p>Are you sure you want to logout?</p>
-            <button>Yes</button>
-            <button>No</button>
-          </div>
+          { logoutModal }
 
       </section>
     );

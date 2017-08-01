@@ -97,7 +97,8 @@ class Home extends Component {
 
           <section className='search_box'>
 
-            <Link className='login_link' to='/login'>Admin Login</Link>
+            <Link className='nav_link login_link' to='/login'>Login</Link>
+            <Link className='nav_link admin_link' to='/admin'>Admin</Link>
 
             <h2 className='search_for_h2'>Search For:</h2>
             <input className='user_search' 

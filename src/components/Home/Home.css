@@ -19,17 +19,24 @@
     text-shadow: 1px 1px 1px #d7cec7;
 }
 
-.login_link{
+.nav_link{
     width: 115px;
-    height: 60px;
+    height: 30px;
     position: absolute;
     right: 0;
-    top: 0;
     font-weight: bold;
     line-height: 40px;
-    text-align: left;
+    text-align: center;
     color: #76323F;
     text-decoration: none;
+}
+
+.login_link{
+    top: 0px;
+}
+
+.admin_link{
+    top: 30px;
 }
 
 .search_for_h2{
