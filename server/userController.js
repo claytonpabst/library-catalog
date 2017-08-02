@@ -2,6 +2,16 @@ const app = require('./index.js');
 
 module.exports = {
 
+    getAllBooks: function(req, res, next){
+        const db = req.app.get('db');
+
+        db.getAllBooks()
+        .then( books => {
+            return res.status(200).json(books)
+        })
+        .catch( err => res.status(500).json(err) )
+    },
+
     searchBooksByTitleAlph: function(req, res, next){
         const db = req.app.get('db');
         let title = req.params.title + '%';

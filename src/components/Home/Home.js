@@ -10,16 +10,27 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      results: [{title: 'When you search for a book, the results will display here, along with the total number of copies and the number we have available for checkout'}],
+      results: [{'...Loading': ''}],
       userInput: '',
       searchBy: 'title',
-      orderBy: 'alph'
+      orderBy: 'alph',
+      userSearch: false
     }
 
     this.UpdateUserInput = this.UpdateUserInput.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.updateSearchBy = this.updateSearchBy.bind(this);
     this.updateOrderBy = this.updateOrderBy.bind(this);
+  }
+
+  componentDidMount(){
+    axios.get(`/api/allBooks`)
+    .then( response => {
+      console.log(response)
+      this.setState({
+        results: response.data
+      })
+    })
   }
 
   UpdateUserInput(e){
@@ -68,7 +79,8 @@ class Home extends Component {
       }
 
       this.setState({
-        results: distinctArr
+        results: distinctArr,
+        userSearch: true
       })
     })
   }
@@ -131,15 +143,28 @@ class Home extends Component {
             <ul className='results_container'>
               {
                 this.state.results.map( (result, i) => {
-                  return <li key={i}>
-                      <Book title={result.title}
-                      author={result.author}
-                      series={result.series}
-                      year={result.year}
-                      numCopies={result.copies}
-                      numAvailable={result.available} 
-                      />
-                    </li>
+                  if (this.state.userSearch){
+                    return <li key={i}>
+                        <Book title={result.title}
+                        author={result.author}
+                        series={result.series}
+                        year={result.year}
+                        numCopies={result.copies}
+                        numAvailable={result.available} 
+                        />
+                      </li>
+                  }else{
+                    return <li key={i}>
+                        <Book title={result.title}
+                        author={result.author}
+                        series={result.series}
+                        year={result.year}
+                        numCopies={result.copies}
+                        numAvailable={result.available} 
+                        bookId={result.bookid}
+                        />
+                      </li>
+                  }
                 })
               }
             </ul>
