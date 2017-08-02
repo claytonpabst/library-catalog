@@ -56,7 +56,6 @@ app.delete('/api/books/:id', adminController.deleteBook);
 app.delete('/api/members/:id', adminController.deleteMember);
 
 // next updates: 
-// list all books with their id - either add a form, or have that as the default option on the user side
 // add an about box for an employer to read about the site - let them know which books they can search. maybe try and keep it on app.js state, and display diff things depending on the router.
 // when viewing acct, can click edit acct and pass info to the other form
 // successful login re-route on the backend like with Auth0
